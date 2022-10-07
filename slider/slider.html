@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./slider.css" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="slide_box">
+        <div class="slide_list">
+          <div class="slide_item num">1</div>
+          <div class="slide_item"></div>
+          <div class="slide_item num">2</div>
+          <div class="slide_item"></div>
+          <div class="slide_item num">3</div>
+          <div class="slide_item"></div>
+          <div class="slide_item num">4</div>
+          <div class="slide_item"></div>
+          <div class="slide_item num">5</div>
+          <div class="slide_item"></div>
+          <div class="slide_item num">6</div>
+          <div class="slide_item"></div>
+          <div class="slide_item num">7</div>
+          <div class="slide_item"></div>
+          <div class="slide_item num">8</div>
+          <div class="slide_item"></div>
+          <div class="slide_item num">9</div>
+          <div class="slide_item"></div>
+          <div class="slide_item num">10</div>
+          <div class="slide_item"></div>
+        </div>
+      </div>
+
+      <button class="prevBtn">prev</button>
+      <button class="nextBtn">Next</button>
+    </div>
+
+    <script>
+      const carouselSlide = document.querySelector(".slide_list");
+      const carouselContents = document.querySelectorAll(".slide_item");
+
+      const prevBtn = document.querySelector(".prevBtn");
+      const nextBtn = document.querySelector(".nextBtn");
+
+      //counter
+      let counter = 1;
+      const size = carouselContents[0].clientWidth;
+
+      carouselSlide.style.transform = "translateX(" + -size * counter + "px)";
+
+      nextBtn.addEventListener("click", () => {
+        if (counter >= carouselContents.length - 1) return;
+        carouselSlide.style.transition = "transform 0.3s ease-in-out";
+        counter++;
+        carouselSlide.style.transform = "translateX(" + -size * counter + "px)";
+      });
+
+      prevBtn.addEventListener("click", () => {
+        if (counter <= 0) return;
+        carouselSlide.style.transition = "transform 0.3s ease-in-out";
+        counter--;
+        carouselSlide.style.transform = "translateX(" + -size * counter + "px)";
+      });
+      console.log(carouselContents.length);
+
+      carouselSlide.addEventListener("transitionend", function () {
+        if (carouselContents[counter].id === "lastClone") {
+          carouselSlide.style.transition = "none";
+          counter = carouselContents.length - 2;
+          carouselSlide.style.transform =
+            "translateX(" + -size * counter + "px)";
+        }
+        if (carouselContents[counter].id === "firstClone") {
+          carouselSlide.style.transition = "none";
+          counter = carouselContents.length - counter;
+          carouselSlide.style.transform =
+            "translateX(" + -size * counter + "px)";
+        }
+      });
+    </script>
+  </body>
+</html>
